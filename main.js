@@ -1,5 +1,5 @@
 
-function nb_dot(line) {
+function get_line_deph(line) {
     if (line.length <= 0)
         return 0;
         
@@ -10,15 +10,6 @@ function nb_dot(line) {
         }
     }
     return count;
-}
-
-function position_decendant(familly, descendance) {
-    for (let position = 0; position < familly.length; position++) {
-        if (nb_dot(familly[position]) == descendance) {
-            return position;
-        }   
-    }
-    return -1;
 }
 
 let families_array = [];
@@ -33,9 +24,9 @@ const count = parseInt(readline());
 for (let i = 0; i < count; i++) {
     const line = readline();
 
-    let nb_dot_line = nb_dot(line);
+    let line_deph = get_line_deph(line);
     
-    if (!nb_dot_line) {
+    if (!line_deph) {
         if (!start) {
             start = true;
         } else {
@@ -46,18 +37,16 @@ for (let i = 0; i < count; i++) {
         }
         
         families_array[index_family] = [];
-    } else if (nb_dot_line) {
-        if (nb_dot_line < current_deph) {
+    } else if (line_deph) {
+        if (line_deph < current_deph) {
             families_array[index_family++] = family_array;
-            let position = position_decendant(family_array, nb_dot_line);
-            family_array = family_array.slice(0, position);
-        } else if (nb_dot_line === current_deph) {
+            family_array = family_array.slice(0, line_deph);
+        } else if (line_deph === current_deph) {
             families_array[index_family++] = family_array;
-            let position = position_decendant(family_array, current_deph);
-            family_array = family_array.slice(0, position);
+            family_array = family_array.slice(0, current_deph);
         }
         
-        current_deph = nb_dot_line;
+        current_deph = line_deph;
     }
     
     family_array.push(line);
