@@ -22,46 +22,48 @@ function position_decendant(familly, descendance) {
 }
 
 let families_array = [];
-let index_familly = 0;
+let index_family = 0;
 let family_array = [];
 
-let nb_dot_selected = 0;
+let current_deph = 0;
 
 let start = false;
 
 const count = parseInt(readline());
 for (let i = 0; i < count; i++) {
     const line = readline();
+
+    let nb_dot_line = nb_dot(line);
     
-    if (!nb_dot(line)) {
+    if (!nb_dot_line) {
         if (!start) {
             start = true;
         } else {
-            families_array[index_familly] = family_array;
+            families_array[index_family] = family_array;
             family_array = [];
-            nb_dot_selected = 0;
-            index_familly++;
+            current_deph = 0;
+            index_family++;
         }
         
-        families_array[index_familly] = [];
-    } else if (nb_dot(line)) {
-        if (nb_dot(line) < nb_dot_selected) {
-            families_array[index_familly++] = family_array;
-            let position = position_decendant(family_array, nb_dot(line));
+        families_array[index_family] = [];
+    } else if (nb_dot_line) {
+        if (nb_dot_line < current_deph) {
+            families_array[index_family++] = family_array;
+            let position = position_decendant(family_array, nb_dot_line);
             family_array = family_array.slice(0, position);
-        } else if (nb_dot(line) === nb_dot_selected) {
-            families_array[index_familly++] = family_array;
-            let position = position_decendant(family_array, nb_dot_selected);
+        } else if (nb_dot_line === current_deph) {
+            families_array[index_family++] = family_array;
+            let position = position_decendant(family_array, current_deph);
             family_array = family_array.slice(0, position);
         }
         
-        nb_dot_selected = nb_dot(line);
+        current_deph = nb_dot_line;
     }
     
     family_array.push(line);
     
     if (i === (count - 1)) {
-        families_array[index_familly] = family_array;
+        families_array[index_family] = family_array;
     }
 }
 
