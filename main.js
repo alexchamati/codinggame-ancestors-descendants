@@ -1,17 +1,3 @@
-
-function get_line_deph(line) {
-    if (line.length <= 0)
-        return 0;
-        
-    let count = 0;
-    for (let index = 0; index < line.length; index++) {
-        if (line[index] === '.') {
-            count++;
-        }
-    }
-    return count;
-}
-
 let families_array = [];
 let index_family = 0;
 let family_array = [];
@@ -24,7 +10,7 @@ const count = parseInt(readline());
 for (let i = 0; i < count; i++) {
     const line = readline();
 
-    let line_deph = get_line_deph(line);
+    let line_deph = line.lastIndexOf('.') + 1;
     
     if (!line_deph) {
         if (!start) {
