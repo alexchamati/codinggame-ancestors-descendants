@@ -51,7 +51,7 @@ class Family {
     head: FamilyMember;
 }
 
-function getNameNDeph(line: string) {
+function getNameNDepth(line: string) {
     const depth = line.lastIndexOf('.') + 1;
     const name = line.substr(depth);
     
@@ -64,7 +64,7 @@ const count: number = parseInt(readline());
 for (let i = 0; i < count; i++) {
     const line: string = readline();
     
-    const { name, depth } = getNameNDeph(line);
+    const { name, depth } = getNameNDepth(line);
     
     if (depth === 0) {
         lastFamily = new Family(name);
